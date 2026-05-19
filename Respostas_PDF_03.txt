@@ -1,0 +1,10 @@
+O que significa dizer que um container é efêmero?
+
+Dizer que um container é efêmero significa que ele pode ser criado, utilizado e removido rapidamente sem comprometer o funcionamento da aplicação. quando um container é removido, seus dados internos normalmente também são apagados, permitindo ambientes temporários e reutilizáveis.
+
+Temporário pois ele nasce, executa e pode morrer rapidamente.
+
+
+Quais as vantagens desse conceito no desenvolvimento e deploy??
+
+O conceito de container efêmero traz vantagens como rapidez na criação de ambientes, facilidade de escalabilidade, isolamento entre aplicações e maior padronização no desenvolvimento e deploy. Isso permite substituir contêineres rapidamente em caso de falhas e facilita processos de integração continua e atualização de aplicações.

@@ -1,0 +1,20 @@
+O que é um contêiner?
+
+Um contêiner é um ambiente isolado que contém aplicação, dependências, bibliotecas e configurações, executando tudo de forma padronizada em qualquer máquina. 
+
+
+
+Diferença entre VM e contêiner
+
+Uma VM virtualiza:
+
+Sistema operacional completo, Kernel, Drivers, Hardware Virtual.
+
+ela é mais pesada porque cada vm possui seu próprio sistema operacional.
+
+O container compartilha o kernel do sistema host, então ele virtualiza apenas, processo, aplicação, dependências. 
+
+o resultado é uma inicialização mais rápida, menor uso de RAM, e menos consumo de armazenamento.
+
+O Docker é muito usado por que resolve o problema de "Na minha maquina funciona"
+pois ele tem a funcionalidade de garantir o mesmo ambiente, mesmas bibliotecas, e mesma configuração.

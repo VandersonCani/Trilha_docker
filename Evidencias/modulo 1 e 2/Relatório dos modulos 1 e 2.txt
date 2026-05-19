@@ -1,0 +1,193 @@
+RELATÓRIO DE EVIDÊNCIAS – TRILHA DOCKER
+MÓDULOS 01 E 02
+
+Aluno: ____________________________________
+Data: ****/****/________
+
+---
+
+## MÓDULO 01 – CRIANDO E GERENCIANDO UM AMBIENTE DOCKER
+
+Objetivo do módulo:
+Realizar a instalação do Docker Desktop, configurar o ambiente utilizando WSL2 e validar o funcionamento do Docker através da execução do contêiner hello-world.
+
+Atividades realizadas:
+
+1. Instalação do Docker Desktop
+   Foi realizada a instalação do Docker Desktop no sistema operacional Windows utilizando WSL2 como backend principal, conforme recomendado no material da trilha.
+
+Evidências:
+
+* "Instalação wsl.png"
+* "Instalação wsl_2.png"
+
+Descrição:
+As imagens demonstram a instalação e habilitação do Windows Subsystem for Linux (WSL) e do componente VirtualMachinePlatform necessários para funcionamento do Docker Desktop.
+
+---
+
+2. Verificação dos requisitos de virtualização
+   Foi realizada a verificação dos requisitos do Hyper-V e suporte à virtualização do sistema.
+
+Evidência:
+
+* "hyperv instalado.png"
+
+Descrição:
+A imagem demonstra a validação dos requisitos do Hyper-V e suporte do processador às funcionalidades necessárias para virtualização.
+
+---
+
+3. Verificação da instalação do Docker
+   Foi realizado o teste do comando de versão do Docker.
+
+Evidência:
+
+* "Hello world e docker version.png"
+
+Descrição:
+A imagem comprova a execução do comando:
+
+docker --version
+
+Confirmando que o Docker Desktop foi instalado corretamente no sistema.
+
+---
+
+4. Execução do primeiro contêiner Docker
+   Foi executado o contêiner hello-world para validar o funcionamento completo do ambiente Docker.
+
+Evidências:
+
+* "Hello world e docker version.png"
+* "confirmação execução helloworld.png"
+
+Descrição:
+As imagens demonstram a execução do comando:
+
+docker run hello-world
+
+O resultado apresentado confirma:
+
+* comunicação entre Docker Client e Docker Daemon;
+* download automático da imagem através do Docker Hub;
+* criação do contêiner;
+* execução do contêiner;
+* finalização correta do processo.
+
+---
+
+Conceitos compreendidos no módulo:
+
+• O que é um contêiner:
+Um contêiner é um ambiente isolado que executa aplicações junto de suas dependências e configurações, garantindo padronização entre diferentes ambientes.
+
+• Diferença entre contêineres e máquinas virtuais:
+Máquinas virtuais virtualizam um sistema operacional completo, enquanto contêineres compartilham o kernel do sistema hospedeiro, tornando sua execução mais leve e rápida.
+
+• Por que contêineres são mais leves:
+Contêineres utilizam menos recursos por não necessitarem de um sistema operacional completo para cada instância executada.
+
+---
+
+## RESULTADO DO MÓDULO 01
+
+Todas as atividades propostas no módulo foram realizadas com sucesso, incluindo:
+
+* instalação do Docker Desktop;
+* configuração do WSL2;
+* validação do ambiente;
+* execução do primeiro contêiner;
+* compreensão dos conceitos fundamentais apresentados na trilha.
+
+============================================================
+MÓDULO 02 – COMPREENDENDO CONTÊINERES E IMAGENS
+===============================================
+
+Objetivo do módulo:
+Compreender o funcionamento das imagens Docker, contêineres e Docker Hub.
+
+---
+
+1. Execução do contêiner hello-world
+   Foi realizada novamente a execução do contêiner hello-world para observação do fluxo completo de funcionamento do Docker.
+
+Evidências:
+
+* "Hello world e docker version.png"
+* "confirmação execução helloworld.png"
+
+Descrição:
+As imagens demonstram:
+
+* download da imagem;
+* criação do contêiner;
+* execução do processo;
+* encerramento automático do contêiner.
+
+---
+
+2. Verificação das imagens Docker armazenadas localmente
+   Foi realizada a listagem das imagens Docker presentes no ambiente.
+
+Evidência:
+
+* "docker images.png"
+
+Descrição:
+A imagem demonstra a execução do comando:
+
+docker images
+
+Confirmando a presença da imagem:
+
+* hello-world:latest
+
+---
+
+3. Verificação dos contêineres criados
+   Foi realizada a listagem dos contêineres existentes no ambiente Docker.
+
+Evidência:
+
+* "containers recentes docker.png"
+
+Descrição:
+A imagem demonstra a execução do comando:
+
+docker ps -a
+
+Confirmando:
+
+* criação do contêiner hello-world;
+* status “Exited (0)”;
+* execução concluída com sucesso.
+
+---
+
+Conceitos compreendidos no módulo:
+
+• O que é uma imagem Docker:
+Uma imagem Docker é um pacote imutável contendo aplicação, bibliotecas, dependências e configurações necessárias para execução de um sistema.
+
+• O que é um contêiner:
+Um contêiner é uma instância em execução criada a partir de uma imagem Docker.
+
+• Diferença entre imagem e contêiner:
+A imagem representa o modelo estático da aplicação, enquanto o contêiner representa a aplicação em funcionamento.
+
+• O que é Docker Hub:
+Docker Hub é um repositório online utilizado para armazenamento e compartilhamento de imagens Docker.
+
+---
+
+## RESULTADO DO MÓDULO 02
+
+Todas as atividades propostas no módulo foram realizadas com sucesso, incluindo:
+
+* execução de contêineres;
+* download automático de imagens;
+* compreensão do fluxo imagem → contêiner;
+* verificação de imagens locais;
+* verificação dos contêineres executados;
+* compreensão conceitual dos componentes fundamentais do Docker.

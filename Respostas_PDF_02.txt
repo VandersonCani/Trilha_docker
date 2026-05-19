@@ -1,0 +1,24 @@
+o que é uma imagem Docker??
+
+Uma imagem Docker é um pacote imutável que contém todos os arquivos, dependências, bibliotecas e configurações necessárias para executar uma aplicação. A imagem funciona como um modelo ou template utilizado para criar contêineres. Ela garante que a aplicação funcione da mesma forma em diferentes ambientes.
+
+
+Pacote imutável significa que depois de criada ela não muda nada automaticamente;
+Você gera nova imagem quando altera a aplicação.
+
+Modelo ou template por que a imagem não executa sozinha, ela serve para criar contêineres.
+
+O que é um contêiner?
+
+Um contêiner é uma instancia em execução de uma imagem Docker. Ele funciona como um ambiente isolado onde a aplicação é executada junto com suas dependências, garantindo padronização e funcionamento consistente em qualquer máquina.
+
+Resumindo, container é a execução de uma imagem ou imagens.
+
+O container não interfere diretamente no sistema host, possui processos separados, possui bibliotecas próprias.
+
+Qual a diferença entre imagem e container?
+
+A imagem Docker é o modelo estático da aplicação, contendo arquivos e configurações necessárias para execução. já o container é  aplicação em funcionamento criada a partir dessa imagem. A imagem funciona como uma receita enquanto o container é o resultado dessa receita sendo executado.
+
+
+
