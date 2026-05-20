@@ -1,0 +1,30 @@
+MÓDULO 03 – GERENCIAMENTO DE CONTÊINERES
+
+As evidências deste módulo demonstram o gerenciamento básico do ciclo de vida de contêineres Docker utilizando a imagem oficial do Nginx.
+
+Na imagem “execucao nginx.png” é possível observar a execução do comando `docker run -d nginx`, responsável por criar e iniciar um contêiner em modo detached, permitindo que o processo continue executando em segundo plano.
+
+A evidência mostra:
+
+* download automático da imagem nginx;
+* criação do contêiner;
+* inicialização do serviço web;
+* geração automática do nome do contêiner;
+* contêiner em status “Up”, indicando execução ativa.
+
+Também é apresentada a execução do comando `docker ps`, utilizado para listar os contêineres atualmente em funcionamento.
+
+Já a imagem “status contêiner e exit da exec.png” demonstra o processo de encerramento do contêiner através do comando `docker stop goofy_greider`.
+
+Após a interrupção do serviço, o comando `docker ps -a` foi utilizado para listar todos os contêineres do ambiente, incluindo os encerrados.
+
+O status “Exited (0)” confirma que o contêiner nginx foi encerrado corretamente e sem falhas durante sua execução.
+
+As atividades realizadas permitiram compreender:
+
+* diferença entre contêineres ativos e finalizados;
+* gerenciamento do ciclo de vida dos contêineres;
+* funcionamento de aplicações executadas continuamente em segundo plano;
+* utilização dos comandos básicos de gerenciamento Docker.
+
+As evidências demonstram que os objetivos propostos no módulo foram atingidos de forma prática e funcional.

@@ -1,0 +1,33 @@
+Qual a função da instrução FROM?
+
+A instrução FROM define a imagem base utilizada para construir uma nova imagem Docker. Ela representa o ponto inicial do Dockerfile, permitindo reutilizar ambientes já existentes como ubuntu, python ou nginx.
+
+Exemplo
+
+FROM python:3.11
+
+Significa: Comece minha imagem usando Python 3.11.
+
+
+
+
+Qual a função da instrução CMD?
+
+A instrução CMD define o comando padrão executado automaticamente quando um contêiner é iniciar a partir da imagem Docker.
+
+CMD ["Python", "app.py"]
+
+Quando o contêiner iniciar ele executará app.py
+
+
+
+
+Por que o Dockerfile é importante para padronização de ambientes?
+
+O Dockerfile é importante porque permite definir de forma automatizada todas as configurações necessárias para a execução de uma aplicação. Isso garante que o ambiente funcione da mesma maneira em diferentes máquinas, reduzindo conflitos de dependências e facilitando o desenvolvimento e deploy.
+
+Aqui está o coração do Docker:
+
+o Dockerfile resolve isso por que todo mundo usa a mesma imagem, mesmas dependências, mesma configuração e mesmo ambiente.
+
+Docker file é um arquivo de texto que define as instruções para criar uma imagem Docker personalizada.
