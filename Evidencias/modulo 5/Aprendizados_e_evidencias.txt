@@ -134,7 +134,8 @@ Elementos de listas YAML exigem espaço após o hífen.
 
 Exemplo correto:
 
-* "3306:3306"
+ports:
+    - "3306:3306"
 
 Foi constatado que a ausência do espaço impede que o parser interprete corretamente a estrutura.
 
