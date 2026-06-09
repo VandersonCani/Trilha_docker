@@ -1,0 +1,372 @@
+# Módulo 5 – Consolidação dos Aprendizados e Evidências
+
+## Objetivo
+
+Este documento tem como finalidade consolidar os conhecimentos adquiridos durante a execução do Módulo 5, registrando os conceitos aprendidos, problemas encontrados, soluções aplicadas e evidências obtidas durante a migração do sistema SmartCall para uma arquitetura baseada em Docker.
+
+---
+
+# Arquitetura Final Obtida
+
+Ao final do módulo foi implementada a seguinte arquitetura:
+
+Navegador
+↓
+Nginx
+↓
+Flask (SmartCall)
+↓
+MySQL
+
+A aplicação passou a ser executada através de múltiplos containers independentes, cada um responsável por uma função específica.
+
+---
+
+# Serviços Implementados
+
+## smartcall-nginx
+
+Responsável por:
+
+* Receber requisições HTTP
+* Executar proxy reverso
+* Encaminhar requisições para o Flask
+
+Porta publicada:
+
+80
+
+---
+
+## smartcall-app
+
+Responsável por:
+
+* Executar a aplicação SmartCall
+* Processar regras de negócio
+* Realizar autenticação
+* Manipular chamados e solicitações
+
+Porta publicada:
+
+5000
+
+---
+
+## smartcall-db
+
+Responsável por:
+
+* Armazenar dados da aplicação
+* Persistir usuários
+* Persistir chamados
+* Persistir configurações do sistema
+
+Porta publicada:
+
+3306
+
+---
+
+# Conceitos Aprendidos
+
+## Docker não é uma Máquina Virtual
+
+Inicialmente existia a percepção de que Docker funcionava como múltiplas máquinas virtuais.
+
+Durante o desenvolvimento foi compreendido que Docker trabalha com:
+
+* Containers
+* Redes
+* Volumes
+* Processos isolados
+
+Containers compartilham o kernel do sistema operacional hospedeiro, diferentemente de máquinas virtuais tradicionais.
+
+---
+
+## Comunicação entre Containers
+
+Foi aprendido que containers pertencentes à mesma rede Docker podem se comunicar utilizando o nome do serviço definido no Docker Compose.
+
+Exemplos utilizados:
+
+smartcall-db
+
+smartcall-app
+
+smartcall-nginx
+
+Isso eliminou a necessidade de utilização de endereços IP fixos.
+
+---
+
+## Docker Compose
+
+Foi realizada a migração de uma estrutura baseada em comandos individuais:
+
+docker run
+
+para uma estrutura declarativa utilizando:
+
+docker-compose.yml
+
+Benefícios observados:
+
+* Reprodutibilidade
+* Facilidade de manutenção
+* Inicialização completa do ambiente através de um único comando
+* Infraestrutura definida como código
+
+Comando utilizado:
+
+docker compose up -d
+
+---
+
+## Estrutura YAML
+
+Durante a construção do arquivo docker-compose.yml foi identificado que pequenos erros de sintaxe impedem o funcionamento correto da configuração.
+
+Aprendizado obtido:
+
+Elementos de listas YAML exigem espaço após o hífen.
+
+Exemplo correto:
+
+* "3306:3306"
+
+Foi constatado que a ausência do espaço impede que o parser interprete corretamente a estrutura.
+
+Evidência:
+
+Imagem da validação do docker compose config.
+
+---
+
+## Proxy Reverso com Nginx
+
+Foi implementado um servidor Nginx utilizando a imagem oficial.
+
+Conceitos aprendidos:
+
+* Proxy Reverso
+* Encaminhamento de requisições
+* Exposição de aplicações através da porta 80
+* Isolamento entre aplicação e camada web
+
+O acesso passou de:
+
+http://localhost:5000
+
+para:
+
+http://localhost
+
+Evidência:
+
+Imagem da aplicação acessada através do Nginx.
+
+---
+
+## Bind Mounts
+
+Foi utilizado o conceito de Bind Mount para disponibilizar o arquivo:
+
+nginx.conf
+
+do host para dentro do container.
+
+Aprendizado:
+
+Volumes podem ser utilizados não apenas para dados, mas também para compartilhamento de arquivos de configuração.
+
+---
+
+## Volumes Docker
+
+Este foi um dos conceitos mais importantes aprendidos durante o módulo.
+
+Foi identificado que:
+
+Container ≠ Dados
+
+Os dados persistem em volumes independentes.
+
+Durante a migração para Docker Compose foi criado um novo volume.
+
+Como consequência:
+
+* O banco sistema_chamados foi recriado
+* As tabelas não existiam
+* O login deixou de funcionar
+
+Aprendizado:
+
+Volume antigo ≠ Volume novo
+
+A troca de volume implica em um novo armazenamento persistente.
+
+---
+
+## Persistência de Banco de Dados
+
+Foi realizado o processo completo de:
+
+* Exportação do banco MySQL
+* Criação de dump SQL
+* Transferência do dump para container
+* Importação do dump
+* Validação das tabelas
+
+Comandos estudados:
+
+mysqldump
+
+docker cp
+
+mysql
+
+SHOW DATABASES
+
+SHOW TABLES
+
+Evidência:
+
+Imagem contendo a validação das tabelas restauradas.
+
+---
+
+## Diagnóstico de Problemas
+
+Durante o módulo foram solucionados diversos problemas reais.
+
+### Conflito de Porta 3306
+
+Causa:
+
+Serviço MySQL do Windows ocupando a porta.
+
+Solução:
+
+Parada do serviço local para liberação da porta ao container.
+
+---
+
+### Banco sem Tabelas
+
+Causa:
+
+Novo volume Docker criado pelo Compose.
+
+Solução:
+
+Importação do dump SQL para o novo volume.
+
+---
+
+### Diferença entre CMD e PowerShell
+
+Foi identificado que:
+
+<
+
+funciona normalmente no CMD.
+
+No PowerShell o operador possui comportamento diferente.
+
+Solução aplicada:
+
+Utilização de docker cp e importação diretamente no ambiente Linux do container.
+
+---
+
+# Evidências Coletadas
+
+## Evidência 01
+
+Validação da configuração do Docker Compose.
+
+Comando:
+
+docker compose config
+
+Imagem associada:
+
+Captura contendo a interpretação correta dos serviços e volumes.
+
+---
+
+## Evidência 02
+
+Validação operacional dos containers.
+
+Comando:
+
+docker ps
+
+Imagem associada:
+
+Captura demonstrando os containers:
+
+* smartcall-nginx
+* smartcall-app
+* smartcall-db
+
+em estado UP.
+
+---
+
+## Evidência 03
+
+Validação do banco restaurado.
+
+Comando:
+
+SHOW TABLES;
+
+Imagem associada:
+
+Captura demonstrando a existência das tabelas:
+
+* usuario
+* role
+* setor
+* chamado
+* solicitacao_usuario
+* tipo_solicitacao
+* usuario_role
+
+---
+
+## Evidência 04
+
+Validação funcional da aplicação.
+
+Testes executados:
+
+* Login
+* Navegação
+* Comunicação Flask ↔ MySQL
+* Comunicação Nginx ↔ Flask
+
+Resultado:
+
+Todos os testes concluídos com sucesso.
+
+---
+
+# Conclusão
+
+Ao término do Módulo 5 foi obtido um ambiente completo baseado em Docker contendo:
+
+* Nginx
+* Flask
+* MySQL
+* Docker Compose
+* Persistência por Volumes
+* Rede entre Containers
+
+A implementação permitiu compreender conceitos utilizados em ambientes corporativos reais, incluindo isolamento de serviços, infraestrutura como código, persistência de dados, proxy reverso e diagnóstico de problemas em ambientes containerizados.
+
+O SmartCall passou a operar integralmente através da infraestrutura Docker validada funcionalmente.

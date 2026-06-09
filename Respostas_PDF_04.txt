@@ -10,7 +10,6 @@ Significa: Comece minha imagem usando Python 3.11.
 
 
 
-
 Qual a função da instrução CMD?
 
 A instrução CMD define o comando padrão executado automaticamente quando um contêiner é iniciar a partir da imagem Docker.
@@ -18,7 +17,6 @@ A instrução CMD define o comando padrão executado automaticamente quando um c
 CMD ["Python", "app.py"]
 
 Quando o contêiner iniciar ele executará app.py
-
 
 
 

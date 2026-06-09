@@ -1,0 +1,191 @@
+# Exercício 3 – Configuração do Nginx como Proxy Reverso
+
+## Objetivo
+
+Configurar um servidor Nginx em container Docker para atuar como proxy reverso da aplicação SmartCall executada em Flask.
+
+O objetivo foi permitir que os usuários acessassem a aplicação através da porta padrão HTTP (80), sem necessidade de informar a porta utilizada internamente pela aplicação Flask.
+
+---
+
+## Arquitetura Inicial
+
+Antes da implementação do Nginx, a comunicação ocorria da seguinte forma:
+
+Navegador
+↓
+Flask (porta 5000)
+
+O acesso era realizado através de:
+
+http://localhost:5000
+
+---
+
+## Arquitetura Implementada
+
+Após a implementação do Nginx:
+
+Navegador
+↓
+Nginx (porta 80)
+↓
+Flask (porta 5000)
+↓
+MySQL (porta 3306)
+
+O acesso passou a ser realizado através de:
+
+http://localhost
+
+---
+
+## Implementação do nginx.conf
+
+Foi criado o arquivo:
+
+nginx/nginx.conf
+
+contendo a configuração de proxy reverso.
+
+Principais diretivas utilizadas:
+
+* listen 80
+* location /
+* proxy_pass http://smartcall-app:5000
+
+O proxy_pass foi configurado utilizando o nome do serviço Docker, permitindo a comunicação entre containers através da rede criada pelo Docker Compose.
+
+---
+
+## Implementação no Docker Compose
+
+Foi adicionado um novo serviço ao arquivo docker-compose.yml:
+
+smartcall-nginx
+
+Configurações principais:
+
+* Imagem oficial nginx:latest
+* Exposição da porta 80
+* Dependência do serviço smartcall-app
+* Volume para disponibilização do arquivo nginx.conf dentro do container
+
+Foi utilizado um bind mount para compartilhar o arquivo de configuração entre o host e o container.
+
+---
+
+## Processo de Validação
+
+Foi utilizado o comando:
+
+docker compose config
+
+para validar:
+
+* Estrutura YAML
+* Configuração dos serviços
+* Volumes
+* Dependências
+* Portas
+
+Após a validação, o ambiente foi iniciado através do comando:
+
+docker compose up -d
+
+---
+
+## Problemas Encontrados
+
+### Conflito da Porta 3306
+
+Durante a inicialização do ambiente, o container MySQL não conseguiu iniciar devido à porta 3306 estar sendo utilizada por uma instância local do MySQL instalada no Windows.
+
+Solução:
+
+Parada do serviço MySQL do sistema operacional hospedeiro para liberar a porta necessária ao container.
+
+---
+
+### Banco de Dados sem Tabelas
+
+Após a migração para Docker Compose, a aplicação apresentou o erro:
+
+Table 'sistema_chamados.usuario' doesn't exist
+
+Diagnóstico:
+
+O banco sistema_chamados existia, porém sem tabelas.
+
+Foi identificado que o Docker Compose criou um novo volume para o MySQL, diferente do volume utilizado durante os testes iniciais com docker run.
+
+Como consequência, o banco foi recriado vazio.
+
+Solução:
+
+Importação do arquivo de dump:
+
+sistema_chamados.sql
+
+para o novo volume utilizado pelo Docker Compose.
+
+---
+
+### Diferença entre CMD e PowerShell
+
+Durante a importação do dump foi identificado que o operador de redirecionamento:
+
+<
+
+funciona normalmente no Prompt de Comando (CMD), porém gera erro de parser no PowerShell.
+
+Solução:
+
+Utilização do comando docker cp para copiar o dump para dentro do container e posterior importação executada diretamente no ambiente Linux do container.
+
+---
+
+## Validação Funcional
+
+Foram realizados os seguintes testes:
+
+✓ Inicialização dos containers
+
+✓ Verificação através do comando docker ps
+
+✓ Acesso via http://localhost
+
+✓ Funcionamento do proxy reverso Nginx → Flask
+
+✓ Autenticação de usuários
+
+✓ Comunicação Flask → MySQL
+
+✓ Navegação entre páginas do sistema
+
+Todos os testes foram concluídos com sucesso.
+
+---
+
+## Conhecimentos Adquiridos
+
+Durante a execução deste exercício foram consolidados os seguintes conceitos:
+
+* Docker Compose
+* Redes Docker
+* Proxy Reverso
+* Nginx
+* Comunicação entre containers
+* Bind Mounts
+* Volumes Docker
+* Persistência de dados
+* Diagnóstico de conflitos de portas
+* Estrutura YAML
+* docker compose config
+* docker compose up
+* docker ps
+* Importação de dumps MySQL
+* Comunicação Flask ↔ MySQL
+* Comunicação Nginx ↔ Flask
+
+O exercício permitiu compreender como aplicações corporativas modernas são organizadas em múltiplos serviços independentes que se comunicam através de redes internas Docker.
