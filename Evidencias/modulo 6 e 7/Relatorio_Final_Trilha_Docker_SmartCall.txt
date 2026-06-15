@@ -1,0 +1,33 @@
+RELATÓRIO FINAL – TRILHA DOCKER
+Projeto SmartCall
+Documentação técnica de conclusão dos Módulos 06 e 07 (Volumes, Persistência e Redes Docker) e evidências complementares do Módulo 10.
+Objetivo
+Documentar as atividades realizadas no projeto SmartCall utilizando Docker, demonstrando aplicação prática dos conceitos de contêineres, redes, volumes, persistência de dados e depuração.
+
+Evidência 01 – docker ps
+Comprova os contêineres smartcall-app, smartcall-db e smartcall-nginx em execução.
+Evidência 02 – docker volume ls
+Demonstra o uso de volumes para persistência do banco MySQL.
+Evidência 03 – docker network ls
+Mostra as redes Docker utilizadas pelo ambiente.
+Evidência 04 – docker network inspect
+Comprova a comunicação entre contêineres na mesma rede.
+Evidência 05 – docker logs
+Demonstra monitoramento e depuração da aplicação Flask.
+Evidência 06 – shell interativo
+Comprova acesso interno ao contêiner.
+Evidência 08 – compose ps
+Mostra os serviços gerenciados pelo Docker Compose.
+Evidência 09 – SHOW DATABASES
+Comprova acesso ao MySQL em execução no contêiner.
+Evidência 10 – SHOW TABLES
+Demonstra a estrutura do banco sistema_chamados.
+Evidência 11 – COUNT usuario
+Comprova existência de dados persistidos.
+Evidência 13 – restart
+Demonstra reinício seguro dos serviços.
+Evidência 14 – persistência
+Confirma a persistência dos dados após reinicialização.
+
+Conclusão
+O projeto SmartCall implementou com sucesso os conceitos fundamentais de Docker: redes, volumes, persistência, Docker Compose e depuração. As evidências coletadas demonstram aplicação prática em um ambiente corporativo real.
